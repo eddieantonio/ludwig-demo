@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+/* Hide the greeting and the footer. */
+.greeting, .main-footer { display: none; }
+body {
+    margin: auto;
+    max-width: 800px;
+    font-family: "Helvetica Neue";
+    font-size: 2em;
+
+    color: #333;
+}
+
+
+/* Header stuff. */
+.main-header {
+    margin-bottom: 0.75em;
+}
+.main-title {
+    font-size: 2.5em;
+    word-spacing: -.25em;
+    font-variant: small-caps;
+}
+.main-title .demo { color: #3cf; }
+
+
+/* "Workspace" stuff. */
+.workspace {
+    width: 100%;
+}
+
+
+/* Main text entry stuff. */
+.entry { /* ??? */ }
+.entry textarea {
+    /* Reset the textarea first. */
+    border: none;
+    overflow: auto;
+    outline: none;
+    resize: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+
+    display: block;
+    padding: 5px 20px;
+    width: 100%;
+    font-size: 100%;
+    background-color: transparent;
+
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 0.5em;
+
+    /*box-shadow: 0 2px 4px rgba(0,0,0,0.2);*/
+}
+/* Give it a blue glow on focus. */
+.entry textarea:focus { border-bottom-color: #3cf; }
+
+
+/* Result stuff. */
+
+.results {
+    padding: 4px 20px;
+}
+.results .placeholder {
+    font-style: italic;
+    text-align: center;
+    color: #aaa;
+    font-size: 0.75em;
+}

@@ -2,14 +2,48 @@
 - var $ = '//cdnjs.cloudflare.com/ajax/libs/zepto/1.1.2/zepto.min.js'
 
 doctype html
-head
-  title Hello, World!
-  script(src=socketio)
-  script(src=$)
-  != js('main')
+html(lang="en_CA")
+  head
+    meta(charset="UTF-8")
+    title Ludwig Demo
 
-body
-  h1 Hi
-  p 
-    em hello.
+    != css('reset')
+    != css('main')
+
+    //- I'll include these scripts later.
+      script(src=socketio)
+      script(src=$)
+      != js('main')
+
+  body
+    header.main-header
+      h1.main-title
+        span.ludwig Ludwig
+        | 
+        span.demo Demo
+
+    .greeting
+
+    .workspace
+      .entry#main-input
+        textarea.extravagant-text-entry(placeholder="Type here and press enter")
+
+      .results
+        .placeholder.
+          No results to show.
+
+    footer.main-footer
+      p.copyright.
+        2014 © Eddie Antonio Santos. BSD Licensed.
+
+    template#t-result
+      .result
+        dl.meta
+          dt Request ID
+          dd.external-id
+          dt Internal ID
+          dd.internal-id
+          dt Turnaround time (ms)
+          dd.tatime
+        .content
 

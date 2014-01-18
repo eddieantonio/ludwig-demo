@@ -1,0 +1,22 @@
+- var socketio = '//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js'
+- var $ = '//cdnjs.cloudflare.com/ajax/libs/zepto/1.1.2/zepto.min.js'
+
+doctype html
+head
+  title Hello, World!
+  script(src=socketio)
+  script(src=$)
+body
+  h1 Hi
+  p 
+    em hello.
+
+  script.
+    (function () {
+      var socket = io.connect('http://localhost:3000/');
+      socket.on('messages', function (data) {
+        console.log('There are my datums:');
+        console.log(data);
+        socket.emit('new tuple', 'herp derp');
+      });
+    }).call(this);

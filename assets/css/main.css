@@ -11,6 +11,8 @@ body {
     color: #333;
 }
 
+.hide { display: none; }
+
 
 /* Header stuff. */
 .main-header {

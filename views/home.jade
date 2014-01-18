@@ -10,10 +10,10 @@ html(lang="en_CA")
     != css('reset')
     != css('main')
 
-    //- I'll include these scripts later.
-      script(src=socketio)
-      script(src=$)
-      != js('main')
+    script(src=socketio)
+    script(src=$)
+    != js('main')
+
 
   body
     header.main-header
@@ -28,9 +28,8 @@ html(lang="en_CA")
       .entry#main-input
         textarea.extravagant-text-entry(
           autofocus, placeholder="Type here and press enter")
-          | Barack Obama plans to invade the Taco Bell empire.
 
-      .results
+      .results#results
         .placeholder.
           No results to show.
 
@@ -45,19 +44,7 @@ html(lang="en_CA")
           dd.request-id undefined
           dt Internal ID
           dd.internal-id undefined
-          dt Turnaround time (ms)
+          dt Turnaround time
           dd.tatime undefined
         .content undefined
-
-    //-
-      .result
-        dl.meta
-          dt Request ID
-          dd.request-id 3
-          dt Internal ID
-          dd.internal-id 89
-          dt Turnaround time
-          dd.tatime 89 ms
-        .content.nlptext.
-          [[PER Barack Obama]] plans to invade the [[ORG Taco Bell]] empire.
 

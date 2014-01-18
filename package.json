@@ -13,6 +13,10 @@
     "redis": "~0.10.0",
     "jade": "~1.1.4",
     "socket.io": "~0.9.16",
-    "express": "~3.4.8"
+    "express": "~3.4.8",
+    "connect-assets": "~2.5.3"
+  },
+  "devDependencies": {
+    "coffee-script": "~1.6.3"
   }
 }

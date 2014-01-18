@@ -6,17 +6,10 @@ head
   title Hello, World!
   script(src=socketio)
   script(src=$)
+  != js('main')
+
 body
   h1 Hi
   p 
     em hello.
 
-  script.
-    (function () {
-      var socket = io.connect('http://localhost:3000/');
-      socket.on('messages', function (data) {
-        console.log('There are my datums:');
-        console.log(data);
-        socket.emit('new tuple', 'herp derp');
-      });
-    }).call(this);

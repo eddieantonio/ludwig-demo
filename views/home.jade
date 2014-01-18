@@ -26,7 +26,9 @@ html(lang="en_CA")
 
     .workspace
       .entry#main-input
-        textarea.extravagant-text-entry(placeholder="Type here and press enter")
+        textarea.extravagant-text-entry(
+          autofocus, placeholder="Type here and press enter")
+          | Barack Obama plans to invade the Taco Bell empire.
 
       .results
         .placeholder.
@@ -40,10 +42,22 @@ html(lang="en_CA")
       .result
         dl.meta
           dt Request ID
-          dd.external-id
+          dd.request-id undefined
           dt Internal ID
-          dd.internal-id
+          dd.internal-id undefined
           dt Turnaround time (ms)
-          dd.tatime
-        .content
+          dd.tatime undefined
+        .content undefined
+
+    //-
+      .result
+        dl.meta
+          dt Request ID
+          dd.request-id 3
+          dt Internal ID
+          dd.internal-id 89
+          dt Turnaround time
+          dd.tatime 89 ms
+        .content.nlptext.
+          [[PER Barack Obama]] plans to invade the [[ORG Taco Bell]] empire.
 

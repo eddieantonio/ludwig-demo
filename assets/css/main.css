@@ -61,11 +61,53 @@ body {
 /* Result stuff. */
 
 .results {
-    padding: 4px 20px;
+    padding: 20px;
 }
 .results .placeholder {
     font-style: italic;
     text-align: center;
     color: #aaa;
     font-size: 0.75em;
+}
+
+.result {
+    position: relative;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    
+}
+
+.result .content {
+    padding-bottom: 24px;
+    color: #555;
+}
+
+.result .meta {
+    position: absolute;
+    display: none;
+    font-size: 0.5em;
+    bottom: 0; left: 0; right: 0;
+    color: #eee;
+    background-color: rgba(0,0,0,0.5);
+    padding: 2px 8px
+}
+
+.result:hover .meta {
+    display: block;
+}
+
+.result dl.meta > dd, .result .meta > dt {
+    display: inline;
+}
+
+.result dl.meta > dt {
+
+    margin-right: 0.5em;
+}
+.result dl.meta > dt::after {
+    content: "";
+}
+.result dl.meta > dd {
+    font-weight: bold;
+    margin-right: 1em;
 }

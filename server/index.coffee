@@ -14,7 +14,7 @@ keyFor = (keys...) ->
 # Parses the result message from Redis (presumably).
 # The resultant object will have an ID and a content hash.
 parseMessage = (message) ->
-  match = message.match /(\d+):(.*)/
+  match = message.match /(\d+):((?:.|\n)*)/
   console.assert(match isnt null)
 
   # Note that the client is to supply 'tatime' and 'rid'.

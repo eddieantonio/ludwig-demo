@@ -29,6 +29,16 @@ newID = do ->
     id += 1
     return id
   
+# 
+parseContent = (text) ->
+  headerPattern = /D\tfile=\tid=\ttitle=\tdate=\turl=\n/
+
+  # If we don't match, just return the text.
+  if not text.match headerPattern
+    return text
+
+  # Else, just strip the part that matches.
+  text.replace(headerPattern, '')
 
 # Adding results to the DOM.
 makeResult = (result) ->
@@ -40,10 +50,13 @@ makeResult = (result) ->
   $template.find('.tatime').text("#{result.tatime} ms")
 
   mainContent = Object.keys(result.content)[0]
+
+  # Does some post-processing on the return... in case that's necessary.
+  content = parseContent result.content[mainContent]
   
   $template.find('.content')
     .addClass(mainContent)
-    .text(result.content[mainContent])
+    .text(content)
  
   $template
 
@@ -63,6 +76,9 @@ bindEntry = ($input, onSubmit) ->
       text = $input.val()
       $input.text()
       onSubmit text if onSubmit?
+
+      # Reset the input:
+      $input.val('')
 
 $ ->
   $resultBox = $ '#results'

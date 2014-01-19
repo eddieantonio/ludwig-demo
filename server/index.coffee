@@ -12,6 +12,7 @@ keyFor = (keys...) ->
 
 
 # Parses the result message from Redis (presumably).
+# The resultant object will have an ID and a content hash.
 parseMessage = (message) ->
   match = message.match /(\d+):(.*)/
   console.assert(match isnt null)
@@ -29,6 +30,9 @@ prettyMuchJustForwardRedis = (socket) ->
   subscriber = redis.createClient()
   publisher = redis.createClient()
 
+  # Maps 'internal IDs' to 'request IDs'
+  activeRequests = {}
+
   # Subscribe to the "results" channel.
   subscriber.subscribe keyFor 'results'
 
@@ -39,14 +43,23 @@ prettyMuchJustForwardRedis = (socket) ->
   socket.on 'message', (message) ->
     publisher.incr keyFor('id'), (err, id) ->
       # Publish the ID and message.
-      publisher.publish keyFor('inbox'), "#{id}:#{message}"
+      publisher.publish keyFor('inbox'), "#{id}:#{message.text}"
+      # Store any metadata in the active requests.
+      activeRequests[id] = message.info
 
   # Then parse and forward the message from Redis:
   subscriber.on 'message', (channel, message) ->
     console.assert(channel is keyFor 'results')
 
+    # Parse the message...
     result = parseMessage message
+    id = result.id
+    # Extract that metadata and set it as the 'RID'.
+    result.rid = activeRequests[id]
+
     socket.emit 'result', result
+    # We can stop tracking the request now.
+    delete activeRequests[id]
 
   # Make sure on client disconnect to disconnect from **both** Redis clients!
   socket.on 'disconnect', ->

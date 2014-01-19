@@ -22,6 +22,13 @@ startSocketIO = (onResult) ->
     cb(null, data) if cb?
 
 
+# Generates IDs.
+newID = do ->
+  id = -1
+  ->
+    id += 1
+    return id
+  
 
 # Adding results to the DOM.
 makeResult = (result) ->
@@ -50,7 +57,7 @@ bindEntry = ($input, onSubmit) ->
   $input.bind 'keypress', (evt) ->
     # When enter is pressed without shift, submit the text.
     if evt.keyCode is 13 and not evt.shiftKey
-      # Don't allow the newline to sneak in.
+      # Don't allow the newline from pressing 'enter' to sneak in.
       evt.preventDefault()
 
       text = $input.val()
@@ -60,10 +67,28 @@ bindEntry = ($input, onSubmit) ->
 $ ->
   $resultBox = $ '#results'
 
+  requests = {}
+
   # Start SocketIO and get bind the "add result" event on message receipt.
   submitMessage = startSocketIO (err, data) ->
+    rid = data.rid
+
+    # Append the turnaround time before rendering...
+    timeTaken = performance.now() - requests[rid].started
+    data.tatime = timeTaken.toFixed 1
+
     addResult $resultBox, data
+
   # Bind the input entry and make sure to submit message with SocketIO.
   bindEntry $('#main-input > textarea'), (text) ->
-    submitMessage text
+
+    # Create a unique ID. 
+    rid = newID()
+    # Keep some metadata for the request.
+    requests[rid] =
+      message: text
+      started: performance.now()
+      rid: rid
+
+    submitMessage text: text, info: rid
 

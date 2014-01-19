@@ -22,23 +22,20 @@ startSocketIO = (onResult) ->
     cb(null, data) if cb?
 
 
-# Generates IDs.
+# Generates monotonic IDs.
 newID = do ->
-  id = -1
+  id = 0
   ->
     id += 1
     return id
-  
-# 
+
+
+# Parses NLPText output.
 parseContent = (text) ->
-  headerPattern = /D\tfile=\tid=\ttitle=\tdate=\turl=\n/
-
-  # If we don't match, just return the text.
-  if not text.match headerPattern
-    return text
-
-  # Else, just strip the part that matches.
+  headerPattern = /^D\tfile=\tid=\ttitle=\tdate=\turl=\n/
+  # The pattern may match at the start and will be removed.
   text.replace(headerPattern, '')
+
 
 # Adding results to the DOM.
 makeResult = (result) ->
@@ -89,9 +86,13 @@ $ ->
   submitMessage = startSocketIO (err, data) ->
     rid = data.rid
 
-    # Append the turnaround time before rendering...
-    timeTaken = performance.now() - requests[rid].started
-    data.tatime = timeTaken.toFixed 1
+    # Only calculate turnaround time if a request ID was returned.
+    if rid?
+      # Append the turnaround time before rendering...
+      timeTaken = performance.now() - requests[rid].started
+      data.tatime = timeTaken.toFixed 1
+    else
+      data.tatime = data.rid = 'Unknown'
 
     addResult $resultBox, data
 

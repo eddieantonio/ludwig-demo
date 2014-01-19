@@ -1,17 +1,20 @@
 @charset "UTF-8";
 
+@import url('http://fonts.googleapis.com/css?family=Montserrat+Alternates:700|Basic');
+
+
 /* Hide the greeting and the footer. */
 .greeting, .main-footer { display: none; }
 body {
     margin: auto;
     max-width: 800px;
-    font-family: "Helvetica Neue";
+    font-family: Basic, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 2em;
 
     color: #333;
 }
 
-.hide { display: none; }
+h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat Alternates', sans-serif; }
 
 
 /* Header stuff. */
@@ -21,8 +24,9 @@ body {
 .main-title {
     font-size: 2.5em;
     word-spacing: -.25em;
-    font-variant: small-caps;
+    /*text-transform: lowercase;*/
 }
+.main-title .ludwig { font-weight: normal; }
 .main-title .demo { color: #3cf; }
 
 
@@ -34,8 +38,8 @@ body {
 
 /* Main text entry stuff. */
 .entry { /* ??? */ }
-.entry textarea {
-    /* Reset the textarea first. */
+.extravagant-text-entry {
+    /* Reset the input/textarea first. */
     border: none;
     overflow: auto;
     outline: none;
@@ -43,6 +47,8 @@ body {
     box-shadow: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
+
+    height: 1.25em;
 
     display: block;
     padding: 5px 20px;
@@ -53,11 +59,9 @@ body {
     border-bottom: 2px solid rgba(0,0,0,0.2);
     border-radius: 0 0 8px 8px;
     margin-bottom: 0.5em;
-
-    /*box-shadow: 0 2px 4px rgba(0,0,0,0.2);*/
 }
 /* Give it a blue glow on focus. */
-.entry textarea:focus { border-bottom-color: #3cf; }
+.extravagant-text-entry :focus { border-bottom-color: #3cf; }
 
 
 /* Result stuff. */

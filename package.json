@@ -1,14 +1,15 @@
 {
   "name": "ludwig-demo",
   "version": "0.0.0",
+  "private": true,
   "description": "Demos the Ludwig prototype",
   "main": "index.coffee",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
+  "repository": "https://github.com/eddieantonio/ludwig-demo.git",
   "author": "Eddie Antonio Santos <easantos@ualberta.ca>",
-  "license": "BSD",
+  "license": "MIT",
   "dependencies": {
     "redis": "~0.10.0",
     "jade": "~1.1.4",

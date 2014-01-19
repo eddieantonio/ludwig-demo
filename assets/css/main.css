@@ -72,6 +72,10 @@ body {
     font-size: 0.75em;
 }
 
+.results .result:last-of-type {
+    border-bottom-color: transparent;
+}
+
 .result {
     position: relative;
     margin-bottom: 20px;
@@ -82,6 +86,7 @@ body {
 .result .content {
     padding-bottom: 24px;
     color: #555;
+    font-weight: bold;
 }
 
 .result .meta {

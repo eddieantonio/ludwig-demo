@@ -18,7 +18,6 @@ startSocketIO = (onResult) ->
 
   # Returns the "message" callback.
   (data, cb) ->
-    console.log 'submit that', data
     socket.emit 'message', data
     cb(null, data) if cb?
 
@@ -43,7 +42,7 @@ makeResult = (result) ->
 
 addResult = ($resultBox, result) ->
   $result = makeResult result
-  $resultBox.children('.placeholder').addClass('hide')
+  $resultBox.children('.placeholder').remove()
   $result.prependTo $resultBox
 
 # Binds the textarea for events and stuff.

@@ -1,5 +1,6 @@
 # SocketIO stuff.
-# Pass the server into this file
+# Export is a function that you call with an HTTP server
+# and get back a shiny socket.io server.
 
 redis = require 'redis'
 socketio = require('socket.io')
@@ -8,20 +9,6 @@ CHANNEL = 'ludwig_demo'
 # Helper: makes... I guess, namespaced keys in Redis.
 keyFor = (keys...) ->
   CHANNEL + ':' + keys.join(':')
-
-
-###
-# A line-based format
-messagePattern = ///
-  ^
-  i:(\d)+\n # First "header" is ID.
-            # There ain't no more headers...
-  \n        # An extra newline, because why not?
-  (.*)      # The rest is message content.
-  $
-  ///
-###
-
 
 
 # Parses the result message from Redis (presumably).
@@ -45,13 +32,11 @@ prettyMuchJustForwardRedis = (socket) ->
   # Subscribe to the "results" channel.
   subscriber.subscribe keyFor 'results'
 
-  # When subscribed... just acknowledge it on the console, I guess?
+  # When subscribed... uh.. ummmm...?
   subscriber.on 'subscribe', (channel, _count) ->
-    console.log "Subscribed to #{channel} with #{_count} listeners."
 
   # On message receive, forward it to Redis.
   socket.on 'message', (message) ->
-    console.log "Got '#{message}'"
     publisher.incr keyFor('id'), (err, id) ->
       # Publish the ID and message.
       publisher.publish keyFor('inbox'), "#{id}:#{message}"
@@ -62,6 +47,12 @@ prettyMuchJustForwardRedis = (socket) ->
 
     result = parseMessage message
     socket.emit 'result', result
+
+  # Make sure on client disconnect to disconnect from **both** Redis clients!
+  socket.on 'disconnect', ->
+    subscriber.unsubscribe keyFor 'results'
+    subscriber.quit()
+    publisher.quit()
 
 
 module.exports = (server) ->

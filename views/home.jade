@@ -2,7 +2,7 @@
 - var $ = '//cdnjs.cloudflare.com/ajax/libs/zepto/1.1.2/zepto.min.js'
 
 doctype html
-html(lang="en_CA")
+html(lang="en-CA")
   head
     meta(charset="UTF-8")
     title Ludwig Demo
@@ -26,8 +26,8 @@ html(lang="en_CA")
 
     .workspace
       .entry#main-input
-        textarea.extravagant-text-entry(
-          autofocus, placeholder="Type here and press enter")
+        textarea.extravagant-text-entry(autofocus,
+          placeholder="Type here and press enter")
 
       .results#results
         .placeholder.
@@ -35,7 +35,7 @@ html(lang="en_CA")
 
     footer.main-footer
       p.copyright.
-        2014 © Eddie Antonio Santos. BSD Licensed.
+        2014 © Eddie Antonio Santos. MIT Licensed.
 
     template#t-result
       .result
